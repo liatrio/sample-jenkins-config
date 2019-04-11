@@ -1,0 +1,72 @@
+jobs: 
+  - script: >
+      folder('Containers') {
+          displayName('Containers')
+          description('Containers')
+      }
+  - script: >
+      pipelineJob('Containers/jenkins-master') {
+        def repo = 'https://github.com/liatrio/liatrio-jenkins.git'
+        def script = 'Jenkinsfile.dev'
+        description("Pipeline for $script in $repo")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url(repo)
+                }
+                branches('productzero')
+                scriptPath(script)
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
+  - script: >
+      pipelineJob('Containers/jnlp-slave') {
+        def repo = 'https://github.com/liatrio/liatrio-jenkins.git'
+        def script = 'example/slave/Jenkinsfile'
+        description("Pipeline for $script in $repo")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url(repo)
+                }
+                branches('master')
+                scriptPath(script)
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
+  - script: >
+      folder('ProductZero') {
+          displayName('ProductZero')
+          description('ProductZero')
+      }
+  - script: >
+      pipelineJob('ProductZero/productzero-java-service') {
+        def repo = 'Product Zero Git URL'
+        def script = 'Jenkinsfile'
+        description("Pipeline for $script in $repo")
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url(repo)
+                  credentials('bitbucket')
+                }
+                branches('pipeline')
+                scriptPath(script)
+                extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+              }
+            }
+          }
+        }
+      }
