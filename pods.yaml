@@ -1,0 +1,56 @@
+templates:
+              - name: docker
+                label: docker
+                nodeUsageMode: NORMAL
+                containers:
+                  - name: docker
+                    image: "docker:1.11"
+                    alwaysPullImage: true
+                    workingDir: "/home/jenkins"
+                    ttyEnabled: true
+                volumes:
+                  - HostPathVolume:
+                      hostPath: "/var/run/docker.sock"
+                      mountPath: "/var/run/docker.sock"
+              - name: jnlp-slave
+                label: jnlp-slave
+                nodeUsageMode: NORMAL
+                containers:
+                  - name: jnlp
+                    image: jenkins/jnlp-slave:latest
+                    alwaysPullImage: false
+                    workingDir: "/home/jenkins"
+                    command: /usr/local/bin/jenkins-slave
+                volumes:
+                  - emptyDirVolume:
+                      memory: false
+                      mountPath: "/tmp"
+              - name: maven
+                label: maven
+                nodeUsageMode: EXCLUSIVE
+                containers:
+                  - name: maven
+                    image: maven:3.3.9-jdk-8-alpine
+                    workingDir: "/home/jenkins"
+              - name: sonar
+                label: sonar
+                nodeUsageMode: EXCLUSIVE
+                containers:
+                  - name: sonar
+                    image: emeraldsquad/sonar-scanner
+                    workingDir: "/home/jenkins"
+              - name: golang
+                label: golang
+                nodeUsageMode: EXCLUSIVE
+                containers:
+                  - name: golang
+                    image: golang:1.10
+                    workingDir: "/home/jenkins"
+              - name: cf
+                label: cf
+                nodeUsageMode: EXCLUSIVE
+                containers:
+                  - name: cf
+                    image: governmentpaas/cf-cli
+                    workingDir: "/home/jenkins"
+
