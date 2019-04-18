@@ -1,5 +1,5 @@
 #!/bin/env groovy
-library identifier: 'lib@dev', retriever: modernSCM([
+library identifier: 'lib@KPITDOS-206_vault', retriever: modernSCM([
     $class: 'GitSCMSource',
     remote: 'https://github.com/liatrio/pipeline-library.git'
   ])
@@ -26,7 +26,7 @@ pipeline {
         }
       }
       steps {
-        deployJenkins("aksCluster", "${TEAM_NAME}", "${helmChoice}")
+        deployJenkins("cluster-devjenkins", "${TEAM_NAME}", "${helmChoice}")
       }
     }
   }
