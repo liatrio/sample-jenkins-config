@@ -13,7 +13,9 @@ pipeline {
 
   environment {
 
-    TEAM_NAME = "productzero"
+    TEAM_NAME   = "productzero"
+    VAULT_URL   = credentials("vault-url")
+    VAULT_TOKEN = credentials("vault-token")
 
   }
 

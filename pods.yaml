@@ -53,4 +53,3 @@ templates:
                   - name: cf
                     image: governmentpaas/cf-cli
                     workingDir: "/home/jenkins"
-
