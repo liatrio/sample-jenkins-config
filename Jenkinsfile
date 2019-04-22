@@ -1,5 +1,5 @@
 #!/bin/env groovy
-library identifier: 'lib@KPITDOS-206_vault', retriever: modernSCM([
+library identifier: 'lib@KPITDOS-230_stable_jenkins', retriever: modernSCM([
     $class: 'GitSCMSource',
     remote: 'https://github.com/liatrio/pipeline-library.git'
   ])
